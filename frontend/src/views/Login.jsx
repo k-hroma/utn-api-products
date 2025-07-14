@@ -50,6 +50,7 @@ const Login = () => {
       }
 
       const data = await response.json()
+      console.log(data)
 
       // obteniendo el token para que el frontend sepa quien es el user logueado
       // CREAR CONTEXTO

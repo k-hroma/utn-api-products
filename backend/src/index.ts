@@ -5,6 +5,7 @@ import { productRouter } from "./routes/productRouter"
 import { authRouter } from "./routes/authRouter"
 
 import cors from "cors"
+import { protect } from "./middleware/auth"
 //import { protect } from "./middleware/auth"
 
 process.loadEnvFile()
@@ -22,7 +23,13 @@ app.use("/api/auth", authRouter)
 
 // antes de acceder a los productos pedir permiso
 // middleware -> una función que se ejecuta en el medio de la petición
-app.use("/api/products", productRouter)
+app.use("/api/products", (req, res, next) => {
+  const protectedMethods = ["POST", "PATCH", "DELETE"];
+  if (protectedMethods.includes(req.method)) {
+    return protect(req, res, next);
+  }
+  next();
+}, productRouter)
 
 app.listen(PORT, () => {
   console.log(`✅ Servidor HTTP en funcionamiento en el puerto ${PORT}.`)

@@ -70,7 +70,7 @@ const login = async (req: Request, res: Response): Promise<any> => {
     const payload = { _id: user._id, username: user.username }
     const secretKey = process.env.JWT_SECRET!
 
-    const token = jwt.sign(payload, secretKey, { expiresIn: "1m" })
+    const token = jwt.sign(payload, secretKey, { expiresIn: "10m" })
 
     res.json({
       success: true,
