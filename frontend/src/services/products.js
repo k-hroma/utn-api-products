@@ -6,7 +6,7 @@ const BASE_API = import.meta.env.VITE_BASE_API;
 
 const getProducts = async () => {
   try {
-    const response = await fetch(BASE_API + "/products", {
+    const response = await fetch(BASE_API, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const createProduct = async ({ name, price, category }) => {
   if (!token) {
     throw new Error("No token found in localStorage");
   }
-  const response = await fetch(BASE_API + "/products", {
+  const response = await fetch(BASE_API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const deleteProduct = async (id) => {
   if (!token) {
     throw new Error("No token found in localStorage");
   }
-  const response = await fetch(`${BASE_API}/products/${id}`, {
+  const response = await fetch(`${BASE_API}/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const deleteProduct = async (id) => {
 const searchByName = async (name) => {
   try {
     const response = await fetch(
-      `${BASE_API}/products/search?name=${encodeURIComponent(name)}`
+      `${BASE_API}/search?name=${encodeURIComponent(name)}`
     );
     console.log(response);
     return response;
